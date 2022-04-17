@@ -1,19 +1,158 @@
 {
+  "baseUrl": ".",
+  "include": ["src/**/*", "tests/**/*"],
+  "vueCompilerOptions": {
+    "experimentalDisableTemplateSupport": true
+  },
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "es5",
     "module": "esnext",
-    "baseUrl": "./",
-    "moduleResolution": "node",
     "paths": {
-      "@/*": [
-        "src/*"
+      "@/*": ["src/*"],
+      "@": [
+        "src/index.js",
+        "src/index.json",
+        "src/index.vue",
+        "src/index.scss",
+        "src/index.css"
+      ],
+      "@src/*": ["src/*"],
+      "@src": [
+        "src/index.js",
+        "src/index.json",
+        "src/index.vue",
+        "src/index.scss",
+        "src/index.css"
+      ],
+      "@router/*": ["src/router/*"],
+      "@router": [
+        "src/router/index.js",
+        "src/router/index.json",
+        "src/router/index.vue",
+        "src/router/index.scss",
+        "src/router/index.css"
+      ],
+      "@views/*": ["src/views/*"],
+      "@views": [
+        "src/views/index.js",
+        "src/views/index.json",
+        "src/views/index.vue",
+        "src/views/index.scss",
+        "src/views/index.css"
+      ],
+      "@components/*": ["src/components/*"],
+      "@components": [
+        "src/components/index.js",
+        "src/components/index.json",
+        "src/components/index.vue",
+        "src/components/index.scss",
+        "src/components/index.css"
+      ],
+      "@assets/*": ["src/assets/*"],
+      "@assets": [
+        "src/assets/index.js",
+        "src/assets/index.json",
+        "src/assets/index.vue",
+        "src/assets/index.scss",
+        "src/assets/index.css"
+      ],
+      "@utils/*": ["src/utils/*"],
+      "@utils": [
+        "src/utils/index.js",
+        "src/utils/index.json",
+        "src/utils/index.vue",
+        "src/utils/index.scss",
+        "src/utils/index.css"
+      ],
+      "@state/*": ["src/state/*"],
+      "@state": [
+        "src/state/index.js",
+        "src/state/index.json",
+        "src/state/index.vue",
+        "src/state/index.scss",
+        "src/state/index.css"
+      ],
+      "@design/*": ["src/styles/*"],
+      "@design": [
+        "src/styles/index.js",
+        "src/styles/index.json",
+        "src/styles/index.vue",
+        "src/styles/index.scss",
+        "src/styles/index.css"
+      ],
+      "@styles/*": ["src/styles/*"],
+      "@styles": [
+        "src/styles/index.js",
+        "src/styles/index.json",
+        "src/styles/index.vue",
+        "src/styles/index.scss",
+        "src/styles/index.css"
+      ],
+      "@constants/*": ["src/constants/*"],
+      "@constants": [
+        "src/constants/index.js",
+        "src/constants/index.json",
+        "src/constants/index.vue",
+        "src/constants/index.scss",
+        "src/constants/index.css"
+      ],
+      "@services/*": ["src/services/*"],
+      "@services": [
+        "src/services/index.js",
+        "src/services/index.json",
+        "src/services/index.vue",
+        "src/services/index.scss",
+        "src/services/index.css"
+      ],
+      "@connection/*": ["src/services/connection.js/*"],
+      "@connection": [
+        "src/services/connection.js/index.js",
+        "src/services/connection.js/index.json",
+        "src/services/connection.js/index.vue",
+        "src/services/connection.js/index.scss",
+        "src/services/connection.js/index.css"
+      ],
+      "@plugins/*": ["src/plugins/*"],
+      "@plugins": [
+        "src/plugins/index.js",
+        "src/plugins/index.json",
+        "src/plugins/index.vue",
+        "src/plugins/index.scss",
+        "src/plugins/index.css"
+      ],
+      "@mock/*": ["tests/mock-api/resources/*"],
+      "@mock": [
+        "tests/mock-api/resources/index.js",
+        "tests/mock-api/resources/index.json",
+        "tests/mock-api/resources/index.vue",
+        "tests/mock-api/resources/index.scss",
+        "tests/mock-api/resources/index.css"
+      ],
+      "@mocks/*": ["tests/__mocks__/*"],
+      "@mocks": [
+        "tests/__mocks__/index.js",
+        "tests/__mocks__/index.json",
+        "tests/__mocks__/index.vue",
+        "tests/__mocks__/index.scss",
+        "tests/__mocks__/index.css"
+      ],
+      "@modal/*": ["src/modal/*"],
+      "@modal": [
+        "src/modal/index.js",
+        "src/modal/index.json",
+        "src/modal/index.vue",
+        "src/modal/index.scss",
+        "src/modal/index.css"
+      ],
+      "@api/*": ["src/api/*"],
+      "@api": [
+        "src/api/index.js",
+        "src/api/index.json",
+        "src/api/index.vue",
+        "src/api/index.scss",
+        "src/api/index.css"
       ]
-    },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
+    }
   }
 }
