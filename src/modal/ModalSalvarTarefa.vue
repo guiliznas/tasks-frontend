@@ -45,6 +45,16 @@ export default {
         if (r.status === 201) {
           // console.log(sucesso)
           this.dialog = false
+          this.$store.dispatch('tarefas/carregar')
+        } else {
+          alert(
+            'Não foi possível salvar a tarefa no momento ' +
+              `(${
+                typeof r.data === 'string'
+                  ? r.data
+                  : r.statusText || 'Erro interno'
+              })`
+          )
         }
       })
     },

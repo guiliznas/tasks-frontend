@@ -1,5 +1,4 @@
 <script>
-import { apiTasks } from '@api/apiTasks'
 import TarefaView from '@components/Tarefa.vue'
 import { NOVA_TAREFA } from '@constants/Modals'
 
@@ -7,18 +6,19 @@ export default {
   name: 'TasksList',
   components: { TarefaView },
   data() {
-    return {
-      tarefas: [],
-    }
+    return {}
+  },
+  computed: {
+    tarefas() {
+      return this.$store.getters['tarefas/lista']
+    },
   },
   created() {
     this.loadData()
   },
   methods: {
     async loadData() {
-      const r = await apiTasks.carregarTarefas()
-      console.log(r)
-      this.tarefas = r
+      this.$store.dispatch('tarefas/carregar')
     },
     abrirNovaTarefa() {
       this.$root.$emit(NOVA_TAREFA)

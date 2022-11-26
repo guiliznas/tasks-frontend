@@ -4,7 +4,7 @@ import { tarefas } from '@constants/URL'
 class APITasks {
   async carregarTarefas() {
     const r = await api.get(tarefas.manage)
-    return r.data || []
+    return r || {}
   }
 
   async salvarTarefa({
