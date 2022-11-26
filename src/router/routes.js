@@ -2,6 +2,7 @@ export default [
   {
     path: '/',
     name: 'home',
+    redirect: '/tasks',
     component: () => lazyLoadView(import('@views/HomeView.vue')),
   },
   {

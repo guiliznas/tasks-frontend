@@ -1,9 +1,6 @@
 {
   "baseUrl": ".",
   "include": ["src/**/*", "tests/**/*"],
-  "vueCompilerOptions": {
-    "experimentalDisableTemplateSupport": true
-  },
   "compilerOptions": {
     "baseUrl": ".",
     "target": "es5",

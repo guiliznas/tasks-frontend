@@ -5,6 +5,18 @@ import vuetify from './plugins/vuetify'
 import '@fortawesome/fontawesome-free/css/all.css'
 
 import 'animate.css'
+import VCurrencyField from 'v-currency-field'
+Vue.use(VCurrencyField, {
+  locale: 'pt-BR',
+  decimalLength: 2,
+  autoDecimalMode: true,
+  min: null,
+  max: null,
+  defaultValue: null,
+})
+
+import VueTheMask from 'vue-the-mask'
+Vue.use(VueTheMask)
 
 Vue.config.productionTip = false
 
