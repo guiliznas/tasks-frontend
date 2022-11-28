@@ -1,16 +1,23 @@
 <script>
 import TarefaView from '@components/Tarefa.vue'
+import AgendaView from '@components/Agenda'
 import { NOVA_TAREFA } from '@constants/Modals'
 
 export default {
   name: 'TasksList',
-  components: { TarefaView },
+  components: { TarefaView, AgendaView },
   data() {
     return {}
   },
   computed: {
     tarefas() {
       return this.$store.getters['tarefas/lista']
+    },
+    tarefasAtrasadas() {
+      return []
+    },
+    tarefasNestaSemana() {
+      return []
     },
   },
   created() {
@@ -34,19 +41,12 @@ export default {
         <v-card>
           <div class="d-flex">
             <h2>Lista de tarefas</h2>
-            <v-btn color="accent" @click="abrirNovaTarefa"> Nova tarefa </v-btn>
+            <v-spacer />
+            <v-btn color="accent" small @click="abrirNovaTarefa">
+              Nova tarefa
+            </v-btn>
           </div>
-          <div
-            style="
-              max-height: 50vh;
-              overflow-y: auto;
-              padding-right: 10px;
-              padding-bottom: 10px;
-              margin-top: 24px;
-              padding-left: 5px;
-              margin-left: -5px;
-            "
-          >
+          <div class="tasks-container">
             <TarefaView
               v-for="tarefa in tarefas"
               :key="tarefa.id"
@@ -56,8 +56,24 @@ export default {
         </v-card>
       </v-col>
       <v-col cols="4">
-        <v-card> <h2>Agenda</h2> </v-card>
+        <v-card>
+          <h2>Próximas entregas</h2>
+          <div class="tasks-container">
+            <AgendaView :tarefas="tarefas" />
+          </div>
+        </v-card>
       </v-col>
     </v-row>
   </div>
 </template>
+
+<style lang="sass">
+.tasks-container
+  max-height: 50vh
+  overflow-y: auto
+  padding-right: 10px
+  padding-bottom: 10px
+  margin-top: 24px
+  padding-left: 5px
+  margin-left: -5px
+</style>

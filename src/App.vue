@@ -6,21 +6,23 @@ export default {
     return {
       drawer: true,
       links: [
-        ['mdi-notebook-outline', 'Visão geral'],
-        ['mdi-cog-outline', 'Configurações'],
+        ['mdi-notebook-outline', 'Visão geral', 'home'],
+        ['mdi-calendar', 'Agenda', 'agenda'],
+        ['mdi-medal-outline', 'Avaliar os modelos', 'avaliar'],
+        ['mdi-cog-outline', 'Configurações', 'setting'],
       ],
     }
   },
   computed: {
     user() {
-      return {
-        email: 'teste@teste.com',
-        nome: 'Guilherme Nascimento',
-      }
+      return this.$store.getters['user/usuario']
     },
     initials() {
       const nome = this.user.nome.split(' ')
       return (nome[0][0] + nome.at(-1)[0]).toUpperCase()
+    },
+    menu() {
+      return this.$route.name
     },
   },
 }
@@ -40,15 +42,23 @@ export default {
       <v-divider></v-divider>
 
       <v-list>
-        <v-list-item v-for="[icon, text] in links" :key="icon" link>
-          <v-list-item-icon>
-            <v-icon>{{ icon }}</v-icon>
-          </v-list-item-icon>
+        <v-list-item-group :value="menu">
+          <v-list-item
+            v-for="[icon, text, route] in links"
+            :key="icon"
+            link
+            :value="route"
+            @click="$router.push({ name: route })"
+          >
+            <v-list-item-icon>
+              <v-icon>{{ icon }}</v-icon>
+            </v-list-item-icon>
 
-          <v-list-item-content>
-            <v-list-item-title>{{ text }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>{{ text }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
 
@@ -68,6 +78,7 @@ export default {
           min-height: calc(100vh - 68px);
           padding: 64px 48px;
           overflow: auto;
+          background-color: #cfd8dc;
         "
       >
         <router-view></router-view>
@@ -85,5 +96,9 @@ export default {
   font-family: Sarabun, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.v-item--active {
+  color: var(--v-accent-base) !important;
 }
 </style>

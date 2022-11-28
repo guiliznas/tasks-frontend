@@ -2,11 +2,14 @@
 import moment from 'moment'
 
 export default {
-  name: 'TarefaView',
+  name: 'TarefaItem',
   props: {
     value: {
       type: Object,
       required: true,
+    },
+    hideValues: {
+      type: Boolean,
     },
   },
   methods: {
@@ -31,7 +34,11 @@ export default {
         {{ value.descricao }}
       </p>
     </div>
-    <div class="d-flex text-right descricao" style="gap: 8px; color: #8e8e8e">
+    <div
+      v-if="!hideValues"
+      class="d-flex text-right descricao"
+      style="gap: 8px; color: #8e8e8e; flex-wrap: wrap"
+    >
       <div>
         <span
           >Importância: <strong> {{ value.importancia || '-' }} </strong>

@@ -2,8 +2,10 @@ export default [
   {
     path: '/',
     name: 'home',
-    redirect: '/tasks',
-    component: () => lazyLoadView(import('@views/HomeView.vue')),
+    meta: {
+      hasAuth: true,
+    },
+    component: () => lazyLoadView(import('@views/Tasks.vue')),
   },
   {
     path: '/login',
@@ -11,20 +13,19 @@ export default [
     component: () => lazyLoadView(import('@views/Login.vue')),
   },
   {
-    path: '/tasks',
-    name: 'tasks',
-    meta: {
-      hasAuth: true,
-    },
-    component: () => lazyLoadView(import('@views/Tasks.vue')),
+    path: '/agenda',
+    name: 'agenda',
+    component: () => lazyLoadView(import('@views/ViewAgenda.vue')),
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => lazyLoadView(import('@views/AboutView.vue')),
+    path: '/avaliar',
+    name: 'avaliar',
+    component: () => lazyLoadView(import('@views/ViewAvaliar.vue')),
+  },
+  {
+    path: '/configurar',
+    name: 'setting',
+    component: () => lazyLoadView(import('@views/Setting.vue')),
   },
   {
     path: '*',

@@ -2,8 +2,14 @@ import api from '@plugins/api'
 import { tarefas } from '@constants/URL'
 
 class APITasks {
-  async carregarTarefas() {
-    const r = await api.get(tarefas.manage)
+  async carregarTarefas({ modelo, agenda = false } = {}) {
+    let url = tarefas.manage + `?agenda=${agenda ? 'True' : 'False'}`
+
+    if (modelo) {
+      url += `&modo=${modelo}`
+    }
+
+    const r = await api.get(url)
     return r || {}
   }
 
