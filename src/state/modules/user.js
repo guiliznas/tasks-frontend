@@ -2,6 +2,8 @@ export const state = {
   usuario: {
     email: 'teste@teste.com',
     nome: 'Guilherme Nascimento',
+    energia: 60,
+    experiencia: 70,
   },
   estaLogado: true,
 }

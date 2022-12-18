@@ -23,14 +23,42 @@ export const actions = {
           : 'Não foi possível carregar as tarefas',
     }
   },
+  concluir: async ({ commit }, tarefa) => {
+    commit('SET_LOADING_TAREFA', { ...tarefa, loading: true })
+    const r = await apiTasks.concluir(tarefa)
+    if (r.status === 200) {
+      commit('ATUALIZAR_TAREFA', { ...r.data, loading: false })
+    }
+    commit('SET_LOADING_TAREFA', { ...tarefa, loading: false })
+  },
 }
 
 export const mutations = {
   SALVAR_TAREFAS: (state, payload) => {
-    state.tarefas = [...payload]
+    state.tarefas = [...payload].map((tarefa) => {
+      return {
+        ...tarefa,
+        loading: false,
+      }
+    })
   },
   SET_LOADING_TAREFAS: (state, payload) => {
     state.loadingTarefas = payload
+  },
+  SET_LOADING_TAREFA: (state, payload) => {
+    const tarefa = state.tarefas.find((item) => item.id === payload.id)
+    if (tarefa) {
+      console.log('set loading', payload.loading)
+      tarefa.loading = payload.loading
+    }
+  },
+  ATUALIZAR_TAREFA: (state, payload) => {
+    let old = state.tarefas.find((tarefa) => tarefa.id === payload.id)
+    if (old) {
+      Object.keys(payload).forEach((key) => {
+        old[key] = payload[key] || old[key]
+      })
+    }
   },
 }
 

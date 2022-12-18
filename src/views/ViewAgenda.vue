@@ -45,14 +45,15 @@ export default {
     <h1> Agenda </h1>
     <p class="secondary--text">
       As tarefas abaixo estão na ordem priorizada pelo modelo selecionado e
-      separadas por dia em que podem ser executadas.
+      separadas por dia em que devem ser entregues (não relacionado ao prazo de
+      entrega).
     </p>
 
     <v-card class="mt-10">
       <div v-for="dia in dias" :key="dia">
         <div
           style="
-            font-weight: 600;
+            font-weight: 700;
             font-size: 12px;
             margin-top: 16px;
             margin-bottom: 8px;

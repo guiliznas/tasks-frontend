@@ -24,11 +24,14 @@ export default {
     this.loadData()
   },
   methods: {
-    async loadData() {
+    loadData() {
       this.$store.dispatch('tarefas/carregar')
     },
     abrirNovaTarefa() {
       this.$root.$emit(NOVA_TAREFA)
+    },
+    async concluirTarefa(tarefa) {
+      this.$store.dispatch('tarefas/concluir', tarefa)
     },
   },
 }
@@ -51,6 +54,8 @@ export default {
               v-for="tarefa in tarefas"
               :key="tarefa.id"
               :value="tarefa"
+              :loading="tarefa.loading"
+              @concluir="concluirTarefa"
             />
           </div>
         </v-card>

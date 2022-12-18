@@ -3,12 +3,19 @@ import moment from 'moment'
 
 export default {
   name: 'TarefaItem',
+  emmits: ['concluir'],
   props: {
     value: {
       type: Object,
       required: true,
     },
     hideValues: {
+      type: Boolean,
+    },
+    hideActions: {
+      type: Boolean,
+    },
+    loading: {
       type: Boolean,
     },
   },
@@ -25,40 +32,66 @@ export default {
 </script>
 
 <template>
-  <div class="tarefa-container">
-    <div>
-      <label class="titulo">
-        {{ value.titulo }}
-      </label>
-      <p class="subtitulo">
-        {{ value.descricao }}
-      </p>
-    </div>
-    <div
-      v-if="!hideValues"
-      class="d-flex text-right descricao"
-      style="gap: 8px; color: #8e8e8e; flex-wrap: wrap"
-    >
-      <div>
-        <span
-          >Importância: <strong> {{ value.importancia || '-' }} </strong>
-        </span>
-        <br />
-        <span
-          >Urgência: <strong> {{ value.urgência || '-' }} </strong>
-        </span>
+  <v-hover v-slot="{ hover }">
+    <div class="tarefa-view my-3">
+      <div
+        class="tarefa-container"
+        :style="{ opacity: value.concluida ? 0.3 : 1 }"
+      >
+        <div>
+          <v-progress-circular
+            v-if="loading"
+            indeterminate
+            size="16"
+            color="primary"
+            width="2"
+          />
+          <label class="titulo">
+            {{ value.titulo }}
+          </label>
+          <p class="subtitulo">
+            {{ value.descricao }}
+          </p>
+        </div>
+        <div
+          v-if="!hideValues"
+          class="d-flex text-right descricao"
+          style="gap: 8px; color: #8e8e8e; flex-wrap: wrap"
+        >
+          <div>
+            <span
+              >Importância: <strong> {{ value.importancia || '-' }} </strong>
+            </span>
+            <br />
+            <span
+              >Urgência: <strong> {{ value.urgência || '-' }} </strong>
+            </span>
+          </div>
+          <div>
+            <span
+              >Carga: <strong> {{ value.carga || '-' }} </strong>
+            </span>
+            <br />
+            <span>
+              Prazo de entrega: <strong> {{ shortDate(value.prazo) }} </strong>
+            </span>
+          </div>
+        </div>
       </div>
-      <div>
-        <span
-          >Carga: <strong> {{ value.carga || '-' }} </strong>
-        </span>
-        <br />
-        <span>
-          Prazo de entrega: <strong> {{ shortDate(value.prazo) }} </strong>
-        </span>
-      </div>
+      <v-expand-transition v-if="!hideActions">
+        <div
+          v-if="!value.concluida && hover"
+          class="d-flex my-3 tarefa-acoes"
+          style="justify-content: flex-end"
+        >
+          <v-btn text color="primary" @click="$emit('concluir', value)">
+            <v-icon> mdi-checkbox-marked-circle-outline </v-icon>
+            Concluir
+          </v-btn>
+        </div>
+      </v-expand-transition>
     </div>
-  </div>
+  </v-hover>
 </template>
 
 <style lang="sass">

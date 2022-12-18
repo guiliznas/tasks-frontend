@@ -1,6 +1,8 @@
 <script>
 import { apiTasks } from '@/api/apiTasks'
 import TarefaView from '@components/Tarefa.vue'
+import { apiUser } from '@/api/apiUser'
+
 export default {
   name: 'AvaliarPage',
   components: { TarefaView },
@@ -18,11 +20,12 @@ export default {
         avancado: [],
         alternativo: [],
       },
-      bestModel: '',
+      bestModel: 'alternativo',
       avaliacaoSemModelo: null,
       avaliacaoBasico: null,
       avaliacaoAvancado: null,
       avaliacaoAlternativo: null,
+      loadingSave: false,
     }
   },
   created() {
@@ -31,13 +34,18 @@ export default {
   methods: {
     async carregarTarefas() {
       this.modelos.map((item) => {
-        apiTasks.carregarTarefas({ modelo: item.value }).then((r) => {
-          this.tarefas[item.value] = r.data || []
-        })
+        apiTasks
+          .carregarTarefas({ modelo: item.value, ativas: true })
+          .then((r) => {
+            this.tarefas[item.value] = r.data || []
+          })
       })
     },
-    salvar() {
-      console.log('dados')
+    async salvar() {
+      this.loadingSave = true
+      await apiUser.salvarAvaliacao()
+      this.loadingSave = false
+      alert('Salvo com sucesso')
     },
   },
 }
@@ -48,24 +56,31 @@ export default {
     <h1>Avaliação dos modelos</h1>
 
     <h2 class="mt-10"> Qual modelo se adequa melhor e parece mais efetivo? </h2>
-    <div class="d-flex lista-modelos-avaliar" style="gap: 8px">
-      <div v-for="modelo in modelos" :key="modelo.value">
-        <v-radio
-          v-model="bestModel"
-          :value="modelo.value"
-          :label="modelo.name"
-          class="my-2"
+    <div>
+      <v-radio-group
+        v-model="bestModel"
+        class="d-flex lista-modelos-avaliar"
+        style="gap: 8px"
+        row
+      >
+        <div
+          v-for="modelo in modelos"
+          :key="modelo.value"
+          style="max-width: 23%; margin: auto"
         >
-        </v-radio>
-        <v-card>
-          <tarefa-view
-            v-for="tarefa in tarefas[modelo.value]"
-            :key="tarefa.id"
-            :value="tarefa"
-            hide-values
-          />
-        </v-card>
-      </div>
+          <v-radio :value="modelo.value" :label="modelo.name" class="my-2">
+          </v-radio>
+          <v-card>
+            <tarefa-view
+              v-for="tarefa in tarefas[modelo.value]"
+              :key="tarefa.id"
+              :value="tarefa"
+              hide-values
+              hide-actions
+            />
+          </v-card>
+        </div>
+      </v-radio-group>
     </div>
 
     <div>
@@ -103,7 +118,9 @@ export default {
       </v-radio-group>
       <div class="d-flex mt-10">
         <v-spacer />
-        <v-btn color="accent" @click="salvar" s> Salvar </v-btn>
+        <v-btn color="accent" :loading="loadingSave" @click="salvar">
+          Salvar
+        </v-btn>
       </div>
     </div>
   </div>
