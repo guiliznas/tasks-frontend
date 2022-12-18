@@ -11,6 +11,7 @@ export default {
         ['mdi-medal-outline', 'Avaliar os modelos', 'avaliar'],
         ['mdi-cog-outline', 'Configurações', 'setting'],
       ],
+      multiplicadorExperiencia: 100,
     }
   },
   computed: {
@@ -36,7 +37,35 @@ export default {
           <span class="white--text"> {{ initials }} </span>
         </v-avatar>
 
-        <div> {{ user.email }} </div>
+        <div> {{ user.nome }} </div>
+        <div
+          style="
+            font-size: 12px;
+            margin-top: 10px;
+            color: #8e8e8e;
+            font-weight: 600;
+          "
+        >
+          <div>
+            <v-progress-linear color="error" :value="user.energia" rounded />
+            <label> Energia </label>
+          </div>
+          <div style="margin-top: 6px">
+            <v-progress-linear
+              color="warning"
+              :value="user.experiencia"
+              rounded
+            />
+            <div class="d-flex">
+              <label>Experiência</label>
+              <v-spacer />
+              <label>
+                Nível
+                {{ parseInt(user.experiencia / multiplicadorExperiencia) + 1 }}
+              </label>
+            </div>
+          </div>
+        </div>
       </v-sheet>
 
       <v-divider></v-divider>

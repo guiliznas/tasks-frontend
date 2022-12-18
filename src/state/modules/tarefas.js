@@ -1,4 +1,5 @@
 import { apiTasks } from '@api/apiTasks'
+import store from '@state/store'
 
 export const state = {
   tarefas: [],
@@ -28,6 +29,7 @@ export const actions = {
     const r = await apiTasks.concluir(tarefa)
     if (r.status === 200) {
       commit('ATUALIZAR_TAREFA', { ...r.data, loading: false })
+      store.dispatch('user/atualizarGamificacao', { tarefa: { ...r.data } })
     }
     commit('SET_LOADING_TAREFA', { ...tarefa, loading: false })
   },

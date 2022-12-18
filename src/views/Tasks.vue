@@ -7,10 +7,17 @@ export default {
   name: 'TasksList',
   components: { TarefaView, AgendaView },
   data() {
-    return {}
+    return {
+      hideDone: true,
+    }
   },
   computed: {
     tarefas() {
+      if (this.hideDone) {
+        return this.$store.getters['tarefas/lista'].filter(
+          (item) => !item.concluida
+        )
+      }
       return this.$store.getters['tarefas/lista']
     },
     tarefasAtrasadas() {
@@ -45,6 +52,13 @@ export default {
           <div class="d-flex">
             <h2>Lista de tarefas</h2>
             <v-spacer />
+            <v-switch
+              v-model="hideDone"
+              dense
+              hide-details
+              label="Esconder concluídas"
+              class="mx-3 mt-0"
+            />
             <v-btn color="accent" small @click="abrirNovaTarefa">
               Nova tarefa
             </v-btn>

@@ -9,17 +9,27 @@ export const state = {
 }
 
 export const actions = {
-  // carregarDados
-  // logar: async ({ commit }) => {},
+  atualizarGamificacao({ commit }, { tarefa }) {
+    // verificar se foi no prazo ou nao
+    let multiplicador = 1
+    if (tarefa.prazo < 0) {
+      multiplicador = -1
+    }
+    console.log('Atualizando valores')
+    // atualizar energia - carga
+    commit('UPDATE_ENERGY', multiplicador * tarefa.carga)
+    // atualizar experiencia - peso_sem_modelo
+    commit('UPDATE_EXP', multiplicador * tarefa.peso_sem_modelo)
+  },
 }
 
 export const mutations = {
-  // SALVAR_TAREFAS: (state, payload) => {
-  //   state.tarefas = [...payload]
-  // },
-  // SET_LOADING_TAREFAS: (state, payload) => {
-  //   state.loadingTarefas = payload
-  // },
+  UPDATE_ENERGY: (state, payload) => {
+    state.usuario.energia += payload
+  },
+  UPDATE_EXP: (state, payload) => {
+    state.usuario.experiencia += payload
+  },
 }
 
 export const getters = {
