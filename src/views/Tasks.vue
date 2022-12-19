@@ -88,7 +88,7 @@ export default {
 
 <style lang="sass">
 .tasks-container
-  max-height: 50vh
+  max-height: 70vh
   overflow-y: auto
   padding-right: 10px
   padding-bottom: 10px

@@ -53,7 +53,7 @@ export default {
           <div style="margin-top: 6px">
             <v-progress-linear
               color="warning"
-              :value="user.experiencia"
+              :value="user.experiencia % multiplicadorExperiencia"
               rounded
             />
             <div class="d-flex">

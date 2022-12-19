@@ -33,9 +33,22 @@ export default {
     },
   },
   created() {
-    apiTasks.carregarTarefas({ agenda: true }).then((r) => {
-      this.tarefas = r.data || r || []
-    })
+    this.loadData()
+  },
+  methods: {
+    loadData() {
+      apiTasks.carregarTarefas({ agenda: true }).then((r) => {
+        this.tarefas = r.data || r || []
+      })
+    },
+    async concluirTarefa(tarefa) {
+      this.$set(tarefa, 'loading', true)
+      const r = await apiTasks.concluir(tarefa)
+      this.$set(tarefa, 'loading', false)
+      if (r.status === 200) {
+        this.loadData()
+      }
+    },
   },
 }
 </script>
@@ -65,6 +78,8 @@ export default {
           v-for="tarefa in tarefaPorDia[dia]"
           :key="tarefa.id"
           :value="tarefa"
+          :loading="tarefa.loading"
+          @concluir="concluirTarefa"
         />
       </div>
     </v-card>

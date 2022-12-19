@@ -56,26 +56,29 @@ export default {
         <div
           v-if="!hideValues"
           class="d-flex text-right descricao"
-          style="gap: 8px; color: #8e8e8e; flex-wrap: wrap"
+          style="
+            gap: 8px;
+            color: #8e8e8e;
+            flex-wrap: wrap;
+            max-width: 250px;
+            justify-content: flex-end;
+            align-items: center;
+          "
         >
-          <div>
-            <span
-              >Importância: <strong> {{ value.importancia || '-' }} </strong>
-            </span>
-            <br />
-            <span
-              >Urgência: <strong> {{ value.urgência || '-' }} </strong>
-            </span>
-          </div>
-          <div>
-            <span
-              >Carga: <strong> {{ value.carga || '-' }} </strong>
-            </span>
-            <br />
-            <span>
-              Prazo de entrega: <strong> {{ shortDate(value.prazo) }} </strong>
-            </span>
-          </div>
+          <span style="max-width: 45%">
+            Importância: <strong> {{ value.importancia || '-' }} </strong>
+          </span>
+          <br />
+          <span style="max-width: 45%">
+            Urgência: <strong> {{ value.urgencia || '-' }} </strong>
+          </span>
+          <span style="max-width: 45%">
+            Carga: <strong> {{ value.carga || '-' }} </strong>
+          </span>
+          <br />
+          <span>
+            Prazo de entrega: <strong> {{ shortDate(value.prazo) }} </strong>
+          </span>
         </div>
       </div>
       <v-expand-transition v-if="!hideActions">

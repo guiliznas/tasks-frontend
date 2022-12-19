@@ -6,12 +6,13 @@ export default {
   data() {
     return {
       dialog: false,
+      loading: false,
       tarefa: {
-        titulo: 'tarefa frontend',
-        descricao: 'criando tarefa pelo frontend',
+        titulo: 'Defender TCC',
+        descricao: 'Realizar a apresentação da defesa do TCC.',
         urgencia: 10,
         importancia: 10,
-        prazo: '10/12/2022',
+        prazo: '19/12/2022',
         carga: 1,
         id: null,
       },
@@ -40,23 +41,31 @@ export default {
       this.dialog = true
     },
     async salvar() {
-      apiTasks.salvarTarefa({ ...this.tarefa }).then((r) => {
-        console.log(r)
-        if (r.status === 201) {
-          // console.log(sucesso)
-          this.dialog = false
-          this.$store.dispatch('tarefas/carregar')
-        } else {
-          alert(
-            'Não foi possível salvar a tarefa no momento ' +
-              `(${
-                typeof r.data === 'string'
-                  ? r.data
-                  : r.statusText || 'Erro interno'
-              })`
-          )
-        }
-      })
+      this.loading = true
+      apiTasks
+        .salvarTarefa({ ...this.tarefa })
+        .then((r) => {
+          this.loading = false
+          console.log(r)
+          if (r.status === 201) {
+            // console.log(sucesso)
+            this.$store.dispatch('tarefas/carregar')
+            this.dialog = false
+          } else {
+            alert(
+              'Não foi possível salvar a tarefa no momento ' +
+                `(${
+                  typeof r.data === 'string'
+                    ? r.data
+                    : r.statusText || 'Erro interno'
+                })`
+            )
+          }
+        })
+        .catch((r) => {
+          alert(r.data ? r.data.message : r.status)
+          this.loading = false
+        })
     },
   },
 }
@@ -128,7 +137,9 @@ export default {
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="accent" text @click="dialog = false"> Cancelar </v-btn>
-        <v-btn color="accent" @click="salvar"> Salvar </v-btn>
+        <v-btn color="accent" :loading="loading" @click="salvar">
+          Salvar
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

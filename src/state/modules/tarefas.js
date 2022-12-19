@@ -12,7 +12,13 @@ export const actions = {
     const r = await apiTasks.carregarTarefas()
     console.log(r)
     if (r.status === 200) {
+      if (typeof r.data === 'string') {
+        // r.data = JSON.parse(JSON.stringify(r.data.split('NaN').join('null')))
+        r.data = []
+      }
       commit('SALVAR_TAREFAS', r.data || [])
+    } else {
+      alert(r.data.message)
     }
     commit('SET_LOADING_TAREFAS', false)
     return {

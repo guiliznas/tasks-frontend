@@ -3,7 +3,7 @@ export const state = {
     email: 'teste@teste.com',
     nome: 'Guilherme Nascimento',
     energia: 60,
-    experiencia: 70,
+    experiencia: 90,
   },
   estaLogado: true,
 }
